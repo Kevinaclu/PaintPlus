@@ -1,0 +1,73 @@
+html,
+body,
+#container {
+  height: 100%;
+  margin: 0;
+}
+
+#right-panel,
+#left-panel {
+  display: inline-block;
+  height: 100%;
+}
+
+#right-panel {
+  width: 10%;
+  background: whitesmoke;
+  float: left;
+}
+
+#left-panel {
+  width: 90%;
+  background: purple;
+}
+
+#paint-container {
+  height: 80%;
+  background: lightgrey;
+  width: 100%;
+  float: left;
+  overflow: auto;
+  text-align: center;
+}
+
+#palette {
+  height: 20%;
+  background: whitesmoke;
+  width: 100%;
+  float: left;
+}
+
+#options {
+  height: 20%;
+  background: coral;
+}
+
+#tools {
+  height: 50%;
+  background: chartreuse;
+}
+
+#thickness {
+  height: 20%;
+  background: cornflowerblue;
+}
+
+#color-palette {
+  width: 60%;
+  height: 100px;
+  background: darkorange;
+  display: inline-block;
+}
+
+#color-picker {
+  width: 110px;
+  height: 100px;
+  background: fuchsia;
+  display: inline-block;
+}
+
+canvas {
+  background-color: white;
+  margin: 10px;
+}

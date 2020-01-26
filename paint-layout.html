@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Paint +++</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="right-panel">
+        <div id="options" class="panel"></div>
+        <div id="tools" class="panel">
+          <div id="pencil">
+            Pencil
+          </div>
+          <div id="line">
+            Line
+          </div>
+          <div id="rect">
+            Rectangle
+          </div>
+          <div id="square">
+            Square
+          </div>
+        </div>
+
+        <div id="thickness" class="panel"></div>
+      </div>
+      <div id="left-panel">
+        <div id="paint-container">
+          <canvas id="paint" width="1080px" height="480px"></canvas>
+        </div>
+        <div id="palette">
+          <div id="color-palette" class="panel"></div>
+          <div id="color-picker" class="panel"></div>
+        </div>
+      </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/utils.js"></script>
+  </body>
+</html>
