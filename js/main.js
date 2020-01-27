@@ -45,13 +45,13 @@ function draw(evt) {
     // console.log(drawingMode)
     switch (drawingMode) {
       case 0:
-        bresenham(prevPos, currPos);
+        line(prevPos, currPos);
         prevPos.x = currPos.x;
         prevPos.y = currPos.y;
         break;
       case 1:
         clearCanvas();
-        bresenham(prevPos, currPos);
+        line(prevPos, currPos);
         break;
       case 2:
         clearCanvas();
@@ -60,6 +60,10 @@ function draw(evt) {
       case 3:
         clearCanvas();
         square(prevPos, currPos);
+        break;
+      case 5:
+        clearCanvas();
+        circle(prevPos, currPos);
         break;
       default:
         break;
@@ -78,11 +82,12 @@ function clearCanvas() {
 }
 
 function drawPixel(x, y) {
-  ctx.fillRect(x, y, 1, 1);
+  ctx.fillRect(x, y, 2, 2);
 }
 
-function bresenham(p1, p2) {
-  // console.log(p1, p2)
+function line(p1, p2) {
+  if (!p2) p2 = p1;
+
   let x1 = p1.x;
   let y1 = p1.y;
 
@@ -163,10 +168,10 @@ function rect() {
     y: currPos.y
   };
 
-  bresenham(p1, p2);
-  bresenham(p2, p3);
-  bresenham(p3, p4);
-  bresenham(p4, p1);
+  line(p1, p2);
+  line(p2, p3);
+  line(p3, p4);
+  line(p4, p1);
 }
 
 function square() {
@@ -192,8 +197,64 @@ function square() {
     y: dx > dy ? currPos.y : prevPos.y + dx
   };
 
-  bresenham(p1, p2);
-  bresenham(p2, p3);
-  bresenham(p3, p4);
-  bresenham(p4, p1);
+  line(p1, p2);
+  line(p2, p3);
+  line(p3, p4);
+  line(p4, p1);
+}
+
+function polygon() {}
+
+function circle(p1, p2) {
+  // let dx = Math.abs(p1.x - p2.x);
+  // let dy = Math.abs(p1.y - p2.x);
+  // let x1 = 20;
+  // let x2 = 150;
+  // let y1 = 1;
+  // let y2 = 150;
+
+  let x1 = p1.x;
+  let x2 = p2.x;
+  let y1 = p1.y;
+  let y2 = p2.y;
+
+  let dx = Math.abs(x1 - x2);
+  let dy = Math.abs(y1 - y2);
+
+  let r = dx < dy ? dx / 2 : dy / 2;
+
+  let center = {
+    x: x1 + r,
+    y: y1 + r
+  };
+
+  let x, y, p;
+  x = 0;
+  y = r;
+  p = 1 - r;
+
+  drawSymmetry(center.x, center.y, x, y);
+
+  while (y > x) {
+    x += 1;
+    if (p < 0) {
+      p += 2 * x + 1;
+    } else {
+      y -= 1;
+      p += 2 * x + 1 - 2 * y;
+    }
+    drawSymmetry(center.x, center.y, x, y);
+  }
+  /* se cicla hasta trazar todo un octante */
+}
+
+function drawSymmetry(centerX, centerY, x, y) {
+  line({ x: centerX + x, y: centerY + y });
+  line({ x: centerX - x, y: centerY - y });
+  line({ x: centerX + x, y: centerY - y });
+  line({ x: centerX - x, y: centerY + y });
+  line({ x: centerX + y, y: centerY + x });
+  line({ x: centerX - y, y: centerY - x });
+  line({ x: centerX + y, y: centerY - x });
+  line({ x: centerX - y, y: centerY + x });
 }

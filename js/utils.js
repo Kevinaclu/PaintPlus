@@ -1,25 +1,30 @@
 let pencil = document.querySelector('#pencil');
-let line = document.querySelector('#line');
+let lineTool = document.querySelector('#line');
 let rectTool = document.querySelector('#rect');
 let squareTool = document.querySelector('#square');
+let triangleTool = document.querySelector('#triangle');
+let circleTool = document.querySelector('#circle');
 
 pencil.onclick = () => {
   drawingMode = 0;
-  // paint.classList.add('pencil-cursor');
-
 }
 
-line.onclick = () => {
+lineTool.onclick = () => {
   drawingMode = 1;
-  // paint.style.cursor = 'crosshair';
 }
 
 rectTool.onclick = () => {
   drawingMode = 2;
-  // paint.style.cursor = 'crosshair';
 }
 
 squareTool.onclick = () => {
   drawingMode = 3;
-  // paint.style.cursor = 'crosshair';
+}
+
+triangleTool.onclick = () => {
+  drawingMode = 4;
+}
+
+circleTool.onclick = () => {
+  drawingMode = 5;
 }
