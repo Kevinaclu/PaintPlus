@@ -82,7 +82,7 @@ function clearCanvas() {
 }
 
 function drawPixel(x, y) {
-  ctx.fillRect(x, y, 2, 2);
+  ctx.fillRect(x, y, 1, 1);
 }
 
 function line(p1, p2) {
@@ -206,22 +206,15 @@ function square() {
 function polygon() {}
 
 function circle(p1, p2) {
-  // let dx = Math.abs(p1.x - p2.x);
-  // let dy = Math.abs(p1.y - p2.x);
-  // let x1 = 20;
-  // let x2 = 150;
-  // let y1 = 1;
-  // let y2 = 150;
-
   let x1 = p1.x;
   let x2 = p2.x;
   let y1 = p1.y;
   let y2 = p2.y;
 
-  let dx = Math.abs(x1 - x2);
-  let dy = Math.abs(y1 - y2);
+  let dx = x2 - x1;
+  let dy = y2 - y1;
 
-  let r = dx < dy ? dx / 2 : dy / 2;
+  let r = Math.abs(dx) < Math.abs(dy) ? Math.abs(dx / 2) : Math.abs(dy / 2);
 
   let center = {
     x: x1 + r,
@@ -233,18 +226,43 @@ function circle(p1, p2) {
   y = r;
   p = 1 - r;
 
-  drawSymmetry(center.x, center.y, x, y);
+  let centerX = center.x;
+  let centerY = center.y;
 
-  while (y > x) {
-    x += 1;
-    if (p < 0) {
-      p += 2 * x + 1;
-    } else {
-      y -= 1;
-      p += 2 * x + 1 - 2 * y;
-    }
-    drawSymmetry(center.x, center.y, x, y);
+  if (dx < 0) {
+    centerX -= r * 2;
   }
+
+  if (dy < 0) {
+    centerY -= r * 2;
+  }
+
+  drawSymmetry(centerX, centerY, x, y);
+
+  if (r > 0) {
+    while (y > x) {
+      x += 1;
+      if (p < 0) {
+        p += 2 * x + 1;
+      } else {
+        y -= 1;
+        p += 2 * x + 1 - 2 * y;
+      }
+      drawSymmetry(centerX, centerY, x, y);
+    }
+  } else {
+    while (x > y) {
+      x -= 1;
+      if (p >= 0) {
+        p += 2 * x + 1;
+      } else {
+        y += 1;
+        p += 2 * x + 1 - 2 * y;
+      }
+      drawSymmetry(centerX, centerY, x, y);
+    }
+  }
+
   /* se cicla hasta trazar todo un octante */
 }
 
