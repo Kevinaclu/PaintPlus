@@ -4,6 +4,7 @@ let ctx = paint.getContext("2d");
 let lastStatus;
 let isDrawing = false;
 let drawingMode = 0;
+let scale = 1;
 
 let positions = {
   prevPos: {
@@ -65,6 +66,10 @@ function draw(evt) {
         clearCanvas();
         circle(prevPos, currPos);
         break;
+      case 6:
+        clearCanvas();
+        ellipse(prevPos, currPos);
+        break;
       default:
         break;
     }
@@ -82,7 +87,7 @@ function clearCanvas() {
 }
 
 function drawPixel(x, y) {
-  ctx.fillRect(x, y, 1, 1);
+  ctx.fillRect(x, y, scale, scale);
 }
 
 function line(p1, p2) {
@@ -177,24 +182,29 @@ function rect() {
 function square() {
   let { prevPos, currPos } = positions;
 
-  let dx = Math.round(currPos.x - prevPos.x);
-  let dy = Math.round(currPos.y - prevPos.y);
+  let dx = currPos.x - prevPos.x;
+  let dy = currPos.y - prevPos.y;
+
+  let dxAbs = Math.abs(dx);
+  let dyAbs = Math.abs(dy);
+
+  let p = dxAbs <= dyAbs ? dxAbs : dyAbs;
 
   let p1 = {
     x: prevPos.x,
     y: prevPos.y
   };
   let p2 = {
-    x: dx < dy ? currPos.x : prevPos.x + dy,
+    x: dx < 0 ? prevPos.x - p : prevPos.x + p,
     y: prevPos.y
   };
   let p3 = {
-    x: dx < dy ? currPos.x : prevPos.x + dy,
-    y: dx > dy ? currPos.y : prevPos.y + dx
+    x: dx < 0 ? prevPos.x - p : prevPos.x + p,
+    y: dy < 0 ? prevPos.y - p : prevPos.y + p
   };
   let p4 = {
     x: prevPos.x,
-    y: dx > dy ? currPos.y : prevPos.y + dx
+    y: dy < 0 ? prevPos.y - p : prevPos.y + p
   };
 
   line(p1, p2);
@@ -203,7 +213,7 @@ function square() {
   line(p4, p1);
 }
 
-function polygon() {}
+function polygon() { }
 
 function circle(p1, p2) {
   let x1 = p1.x;
@@ -264,6 +274,9 @@ function circle(p1, p2) {
   }
 
   /* se cicla hasta trazar todo un octante */
+}
+
+function ellipse(p1, p2) {
 }
 
 function drawSymmetry(centerX, centerY, x, y) {

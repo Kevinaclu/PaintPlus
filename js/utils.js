@@ -4,6 +4,7 @@ let rectTool = document.querySelector('#rect');
 let squareTool = document.querySelector('#square');
 let triangleTool = document.querySelector('#triangle');
 let circleTool = document.querySelector('#circle');
+let ellipseTool = document.querySelector('#ellipse');
 
 pencil.onclick = () => {
   drawingMode = 0;
@@ -27,4 +28,8 @@ triangleTool.onclick = () => {
 
 circleTool.onclick = () => {
   drawingMode = 5;
+}
+
+ellipseTool.onclick = () => {
+  drawingMode = 6;
 }
